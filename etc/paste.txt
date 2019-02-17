@@ -1,0 +1,30 @@
+###################################################
+
+Desafio
+
+Nosso principal produto possui um webserver(nginx) que recebe milhões de requests por dia. 
+
+Esse desafio consiste em construir uma API que receberá um arquivo de log gerado em um desses webservers, efetue um processamento, e retorne informações e estatísticas sobre o mesmo, para que possamos detectar padrões, anomalias e possíveis problemas. Enviamos em anexo um log de exemplo.
+
+O log possui o seguinte formato (sem quebras de linha):
+
+'$remote_addr - $remote_user [$time_local] $host "$request" '
+'$status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for" '
+'request_time[$request_time] Proxy_subrequest[$proxy_host$uri$is_args$args] '
+'Proxy: $upstream_cache_status $upstream_status $upstream_response_time '
+'Cache-Control: $upstream_http_cache_control '
+'Expires: $upstream_http_expires '
+'Scheme: $scheme '
+'SSL: $http2 $ssl_server_name $ssl_session_id $ssl_session_reused $ssl_protocol $ssl_cipher'
+
+A API precisa ser em python e documentada com instruções sobre como deployar o código. Fique a vontade para criar quais endpoints você julgar necessário.
+
+Segue uma sugestão para os endpoints da API:
+
+/parse =>  aceita post com o arquivo de log.
+/list => lista o resultado dos últimos processamentos
+
+###################################################
+
+> Creditos:
+Fontes: https://regex101.com/r/wS5lX2/4
