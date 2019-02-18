@@ -37,8 +37,8 @@ class Parse():
                 status = re.search(r'(?P<status>[ ](\d{3})[ ])', logfile[x])
                 status = self.searchElement('status', status).replace(' ', '')
                 body_bytes_sent = re.search(r'(?P<body_bytes_sent>((\d+)[ ]["]))', logfile[x])
-                body_bytes_sent = self.searchElement('body_bytes_sent.group',
-                                                     body_bytes_sent.group).replace(' ', '').replace('"', '')
+                body_bytes_sent = self.searchElement('body_bytes_sent',
+                                                     body_bytes_sent).replace(' ', '').replace('"', '')
                 request_time = re.search(r'(?P<request_time>(\[[0-9]?[0-9]?[0-9][.][0-9]?[0-9]?[0-9])\])', logfile[x])
                 request_time = self.searchElement('request_time', request_time).replace('[', '').replace(']', '')
                 proxy_host = re.search(r'(?P<proxy_host>(\[[a-zA-Z]\S*\]))', logfile[x])
