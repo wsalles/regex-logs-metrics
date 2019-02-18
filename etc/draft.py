@@ -1,6 +1,6 @@
 import re
 
-f = open('log.txt', 'r')
+f = open('../log.txt', 'r')
 logfile = f.read().split('\n')
 
 logfile_list = []
@@ -49,3 +49,5 @@ for x in range(len(logfile)):
         })
     else:
         print('Log not found')
+
+print(logfile_list[0])

@@ -3,7 +3,7 @@ import requests
 
 url = 'http://localhost/parse'
 
-file = {'file': open('log.txt', 'rb')}
+file = {'file': open('log2.txt', 'rb')}
 
 result = requests.post(url, files=file)
 

@@ -9,6 +9,8 @@ api = Api(app)
 
 logs = []
 k = []
+files = []
+show = {}
 
 class Metrics(Resource):
     def get(self):
@@ -19,18 +21,32 @@ class Metrics(Resource):
 
 class List(Resource):
     def get(self):
-        return {'logs': logs}
+        return {'logs' : show }
+
+class LogFile(Resource):
+    def get(self, file):
+        search = next(filter(lambda x: x == file, show), None)
+        if search is None:
+            return {'logfile': search}, 200 if search else 404
+        else:
+            return {'logfile' : show[file]}, 200 if show[file] else 404
 
 class Parse(Resource):
     def post(self):
         file = request.files['file']
+        self.fname = file.filename
         file = file.read().decode('utf-8')
-        l = pl.Parse(file)
-        logs.append(l.getList())
-        return logs
+        logs = pl.Parse(file).getList(self.fname)
+        search = next(filter(lambda x: x == self.fname, files), None)
+        if search is None:
+            files.append(self.fname)
+            show[self.fname] = logs #[logs[i] for i in range(len(logs))]
+            return show
+        return "O arquivo ja foi carregado!"
 
 api.add_resource(Metrics, '/metrics')
 api.add_resource(List, '/list')
+api.add_resource(LogFile, '/log/<string:file>')
 api.add_resource(Parse, '/parse')
 
 app.run(debug=True, host='0.0.0.0', port=80)
