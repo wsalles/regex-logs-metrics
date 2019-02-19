@@ -26,5 +26,6 @@ Segue uma sugestão para os endpoints da API:
 
 ###################################################
 
-> Creditos:
-Fontes: https://regex101.com/r/wS5lX2/4
+> Creditos > Fontes:
+https://regex101.com/
+https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml

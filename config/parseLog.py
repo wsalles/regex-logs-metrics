@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+from collections import Counter
 
 class Parse():
     def __init__(self, file):
@@ -9,12 +10,28 @@ class Parse():
         try:
             self.element = regex.group(key)
         except:
-            self.element = ""
+            self.element = "0"
         return self.element
 
-    def getList(self, filename):
-        logfile = self.file.split('\n')
+    def counters(self, list_):
+        c = Counter(list_)
+        d = dict(c)
+        return d
+
+    def MinMaxValue(self, sum_, mt):
+        m = 0
+        for x in range(len(sum_)):
+            if mt == 'min':
+                if float(sum_[x]) < m:
+                    m = float(sum_[x])
+            elif mt == 'max':
+                if float(sum_[x]) > m:
+                    m = float(sum_[x])
+        return m
+
+    def getList(self):
         logfile_list = []
+        logfile = self.file.split('\n')
         for x in range(len(logfile)):
             if logfile[x]:
                 remote_addr = re.search(r'(?P<remote_addr>((([0-9]?[0-9]?[0-9])[.]){3}([0-9]?[0-9]?[0-9]))[ ])',
@@ -67,4 +84,45 @@ class Parse():
                 })
             else:
                 pass  # print('Log not found')
-        return {'filename' : filename, 'data' : logfile_list}
+        return logfile_list
+
+    def getMetrics(self, metrics_list):
+        a_r_addr, a_t_local, a_hosts, a_status, a_b_bytes_sent, a_h_user_agent, a_r_time = [], [], [], [], [], [], []
+        requests_ = len(metrics_list)
+        for y in range(requests_):
+            r_addr = metrics_list[y]['remote_addr']
+            a_r_addr.append(r_addr)
+            t_local = metrics_list[y]['time_local']
+            a_t_local.append(t_local)
+            hosts = metrics_list[y]['host']
+            a_hosts.append(hosts)
+            status = metrics_list[y]['status']
+            a_status.append(status)
+            b_bytes_sent = metrics_list[y]['body_bytes_sent']
+            a_b_bytes_sent.append(b_bytes_sent)
+            h_user_agent = metrics_list[y]['http_user_agent']
+            a_h_user_agent.append(h_user_agent)
+            r_time = metrics_list[y]['request_time']
+            a_r_time.append(r_time)
+        r_addr = self.counters(a_r_addr)
+        t_local = self.counters(a_t_local)
+        hosts = self.counters(a_hosts)
+        status = self.counters(a_status)
+        min_bytes_sent = self.MinMaxValue(a_b_bytes_sent, 'min')
+        max_bytes_sent = self.MinMaxValue(a_b_bytes_sent, 'max')
+        avg_bytes_sent = sum(float(i) for i in a_b_bytes_sent) / len(a_b_bytes_sent)
+        h_user_agent = self.counters(a_h_user_agent)
+        min_r_time = self.MinMaxValue(a_r_time, 'min')
+        max_time = self.MinMaxValue(a_r_time, 'max')
+        avg_time = sum(float(i) for i in a_r_time) / len(a_r_time)
+        metrics = {
+                             'requests': requests_,
+                             'remotes_address' : r_addr,
+                             'requests_time': {'min': min_r_time, 'avg': avg_time, 'max': max_time},
+                             'requests_dates': t_local,
+                             'access_hosts': hosts,
+                             'http_status_code': status,
+                             # 'users_agents': h_user_agent,
+                             'bytes_sent': {'min': min_bytes_sent, 'avg': avg_bytes_sent, 'max': max_bytes_sent}
+                  }
+        return metrics

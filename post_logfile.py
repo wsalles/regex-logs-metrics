@@ -3,8 +3,7 @@ import requests
 
 url = 'http://localhost/parse'
 
-file = {'file': open('log.txt', 'rb')}
-
-result = requests.post(url, files=file)
-
-print(result.text)
+for x in range(1, 3):
+    file = {'file': open('./logs/log' + str(x) + '.txt', 'rb')}
+    result = requests.put(url, files=file)
+    print(result.text)
