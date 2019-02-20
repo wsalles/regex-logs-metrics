@@ -6,12 +6,17 @@ from collections import Counter
 
 __author__ = 'Wallace Salles'
 app = Flask(__name__)
+
 api = Api(app)
 
 logs = []
 files = []
 show = {}
 metrics = {}
+
+@app.route('/')
+def index():
+    return "<h4>GLOG API v1.0</h4>Staff Storm<br>Globo.com"
 
 class Metrics(Resource):
     def get(self):
