@@ -65,4 +65,4 @@ api.add_resource(List, '/list')
 api.add_resource(LogFile, '/log/<string:file>')
 api.add_resource(Parse, '/parse')
 
-app.run(debug=True, host='0.0.0.0', port=80)
+app.run(host='0.0.0.0', port=8888)

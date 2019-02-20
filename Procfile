@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:80 gcom-app:app
+web: gunicorn --bind 0.0.0.0:8888 gcom-app:app
