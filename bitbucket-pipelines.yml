@@ -16,4 +16,4 @@ pipelines:
                 deployment: staging #production
                 script:
                   - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD
-                  - heroku ps:scale web=1
+                  - scale web=1
