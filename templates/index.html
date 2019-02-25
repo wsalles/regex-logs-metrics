@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        
+    <meta charset="UTF-8">
+    <title>GLOG-API // Send File</title>
+</head>
+<body>
+    <div class="container alert alert-secondary m-auto picker">
+        <div>
+            <div >
+                <!-- Form -->
+                <form action="https://challenge-accept-gcom-stg.herokuapp.com/parse" enctype="multipart/form-data" method="post" align="center">
+                    <div >
+                        <div >                            
+                            <br>
+                            <div>
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Logo_do_provedor_Globo.png"/>
+                            </div>
+                            <br>
+                            <div >
+                                <label>Selecione o arquivo de log:</label>
+                            </div>
+                            <div align="center">
+                                <input class="btn btn-primary" type="file" name="file">
+                            </div>
+                    <br>
+                    <div align="center">
+                        <input class="btn btn-primary" type="submit" value="Enviar">
+                    </div>
+                </form>
+                <br><br><br>
+                <div>
+                	<p>Staff Storm<br>Copyright © 2019<br>www.globo.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

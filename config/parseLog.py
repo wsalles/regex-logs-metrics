@@ -4,9 +4,11 @@ from collections import Counter
 
 class Parse():
     def __init__(self, file):
+        # Recebe os dados do arquivo log
         self.file = file
 
     def searchElement(self, key, regex):
+        # Testa se houve retorno do elemento procurado na regex
         try:
             self.element = regex.group(key)
         except:
@@ -14,11 +16,16 @@ class Parse():
         return self.element
 
     def counters(self, list_):
+        # Funcao para contar quantas vezes o valor X se repete
+        # Ex: {'s3.glbimg.com' : 1000}
         c = Counter(list_)
         d = dict(c)
         return d
 
     def MinMaxValue(self, sum_, mt):
+        # Realiaza o teste a fim de retornar o valor minimo ou maximo da lista
+        # Se o segundo arumento 'mt' receber 'max', o teste retornara o valor maximo da lista
+        # Se o segundo arumento 'mt' receber 'min', o teste retornara o valor minimo da lista
         m = 0
         for x in range(len(sum_)):
             if mt == 'min':
@@ -30,6 +37,7 @@ class Parse():
         return m
 
     def getList(self):
+        # Metodo utilizado para tratar os campos do arquivo log utilizando expressao regular
         logfile_list = []
         logfile = self.file.split('\n')
         for x in range(len(logfile)):
@@ -66,6 +74,7 @@ class Parse():
                 expires = self.searchElement('expires', expires)[8:].replace(' ', '')
                 ssl = re.search(r'(?P<ssl>SSL[: ][ ]\w*)', logfile[x])
                 ssl = self.searchElement('ssl', ssl)[4:].replace(' ', '')
+                #Adiciona todos os valores capturados em uma lista para serem exibidos no final
                 logfile_list.append({
                     'remote_addr': remote_addr,
                     'time_local': time_local,
@@ -87,6 +96,8 @@ class Parse():
         return logfile_list
 
     def getMetrics(self, metrics_list):
+        # Metodo para juntar informacoes da lista e criar metricas (collections)
+        # Collections tem um metodo chamado Counter que realiza a contagem de quantas vezes o valor X foi repetido
         a_r_addr, a_t_local, a_hosts, a_status, a_b_bytes_sent, a_h_user_agent, a_r_time = [], [], [], [], [], [], []
         requests_ = len(metrics_list)
         for y in range(requests_):
