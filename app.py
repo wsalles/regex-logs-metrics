@@ -78,6 +78,6 @@ api.add_resource(List, '/list')
 api.add_resource(LogFile, '/log/<string:file>')
 api.add_resource(Parse, '/parse')
 
-# Execucao da API
+# Execucao da API ##
 port = int(os.environ.get("PORT", 5000))
 app.run(host='0.0.0.0', port=port)
